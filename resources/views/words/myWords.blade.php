@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Моя слова')
+@section('title', 'Мои отправлены')
 
 @section('content')
    
@@ -13,6 +13,7 @@
 
             </div>
         @endif
+        @if(!$allwords->isEmpty())
             <div class="container  mt-3 border border-1 p-3">
             @foreach($allwords as $word)
                   
@@ -39,6 +40,9 @@
 
                     
                 @endforeach
+                @else
+                <h1>No</h1>
+                @endif
             </div>
           
     

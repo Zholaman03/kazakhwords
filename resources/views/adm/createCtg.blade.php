@@ -1,6 +1,6 @@
 @extends('layouts.adm')
 
-@section('title', 'Create category')
+@section('title', 'Создать категорий')
 
 @section('content')
         <div class="container">

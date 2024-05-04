@@ -14,8 +14,9 @@
             </div>
         @endif
             <div class="container  mt-3 border border-1 p-3">
-            @foreach($allwords as $word)
-                  
+            @if(!$allwords->isEmpty())
+                @foreach($allwords as $word)
+
                         <div class="container  border border-1 position-relative p-4 rounded mb-5 bg-body-tertiary shadow-lg d-flex justify-content-between align-items-center">
                             <div>
                             <div class="fw-bold">{{$word->author}}</div>
@@ -38,7 +39,10 @@
                         </div>
 
                     
-                @endforeach
+                    @endforeach
+                @else
+                <h1>No</h1>
+                @endif
             </div>
           
     

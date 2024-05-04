@@ -1,6 +1,6 @@
 @extends('layouts.adm')
 
-@section('title', 'Users')
+@section('title', 'Пользователи')
 
 @section('content')
 <div class="container">

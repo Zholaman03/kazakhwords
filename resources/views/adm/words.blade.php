@@ -1,6 +1,6 @@
 @extends('layouts.adm')
 
-@section('title', 'Words')
+@section('title', 'Админ')
 
 @section('content')
 <div class="container">

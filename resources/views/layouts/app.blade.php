@@ -22,7 +22,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                   Цитаталар жазатынғо короче
+                Сокровищница мудрости
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -38,13 +38,13 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown2">
                                    <a class="dropdown-item" >
-                                       adsad
+                                       Казахские слова
                                     </a>
                                     <a class="dropdown-item" >
-                                       adsad
+                                       Русские слова
                                     </a>
                                     <a class="dropdown-item" >
-                                       adsad
+                                        Английские слова
                                     </a>
                                 </div>
                             </li>

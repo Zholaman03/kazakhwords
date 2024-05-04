@@ -106,7 +106,12 @@ class WordController extends Controller
 
     public function destroy(Word $word){
 
+        $wordModel = Word::find($word);;
+        if (!$wordModel) {
+            return redirect()->route('adm.words');
+        }
         $this->authorize('delete', $word);
+        
         $word->delete();
         return back();
     }
