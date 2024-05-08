@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    public function words(){
+        return $this->hasMany(Word::class);
+    }
+    
     protected $fillable = ['name'];
 }

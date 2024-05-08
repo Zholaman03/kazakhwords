@@ -15,6 +15,13 @@ class AdminController extends Controller
         return view('adm.words', ['words'=>$allWords]);
     }
 
+    public function edit(Word $word){
+        $allCategory = Category::all();
+        $this->authorize('view', $word);
+
+        return view('adm.edit', ['allWords' => $word, 'categories'=>$allCategory]);
+    }
+
     public function users(){
         $allUsers = User::all();
         return view('adm.users', ['users'=>$allUsers]);
@@ -35,11 +42,14 @@ class AdminController extends Controller
         return redirect()->route('adm.createCtg');
     }
 
-    public function active(Word $word){
+    public function active(Request $req, Word $word){
         $word->update([
-            'is_active'=> true
+            'author' => $req->author,
+            'description' => $req->description,
+            'is_active'=> true,
+            'category_id'=> $req->category_id
         ]);
-        return back();
+        return redirect()->route('adm.index')->with('message', 'Принял слова');
 
     }
 

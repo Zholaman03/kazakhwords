@@ -4,6 +4,12 @@
 
 @section('content')
 <div class="container">
+        @if(session('message'))
+            <div class="alert alert-success" role="alert">
+                {{session('message')}}
+
+            </div>
+        @endif
         
             <div class="container  mt-3 border border-1 p-3">
             @foreach($words as $word)
@@ -21,26 +27,19 @@
                                     @method('DELETE')
                                     <button class="btn btn-danger">Delete</button> 
                                 </form>
-                                <form action="
-                                        @if(!$word->is_active) 
-                                            {{route('adm.active', $word->id)}}
-                                        @else
-                                            {{route('adm.remove', $word->id)}}
-                                        @endif
-                                " method="post">
+                                @if($word->is_active)
+                                <form action="{{route('adm.remove', $word->id)}}" method="post">
                                     @csrf 
                                     @method('PUT')
-                                    <button class="btn {{$word->is_active ? 'btn-secondary' : 'btn-success'}}">
-                                        @if(!$word->is_active) 
-                                            Принять
-                                        @else
+                                    <button class="btn btn-secondary">
+                                    
                                             Убрать
-                                        @endif
+                                    
                                         </button> 
                                         
                                 </form>
-                               
-                               <a href="{{route('words.edit', $word->id)}}" class="btn btn-primary ml-3 ">Edit</a>
+                                @endif
+                               <a href="{{route('adm.edit', $word->id)}}" class="btn btn-primary ml-3 ">Edit</a>
                             </div>
                         </div>
 

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('title', 'Редактировать')
 
@@ -19,17 +19,17 @@
             <div class="col-md-6 ">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        <h5 class="card-title">Create Words</h5>
-                        <form action="{{route('words.update', $allWords->id)}}" method="POST">
+                        <h5 class="card-title">Редактировать</h5>
+                        <form action="{{route('words.update', $word->id)}}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="form-group mt-3">
                                 <label for="wordInput">Author:</label>
-                                <input type="text" class="form-control" id="wordInput" value="{{$allWords->author}}" name="author" placeholder="Enter a word" required>
+                                <input type="text" class="form-control" id="wordInput" value="{{$word->author}}" name="author" placeholder="Enter a word" required>
                             </div>
                             <div class="form-group mt-3">
                                 <label for="descriptionTextarea">Description:</label>
-                                <textarea class="form-control" id="descriptionTextarea" name="description" rows="3" placeholder="Enter a description" required>{{$allWords->description}}</textarea>
+                                <textarea class="form-control" id="descriptionTextarea" name="description" rows="3" placeholder="Enter a description" required>{{$word->description}}</textarea>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Update</button>
                         </form>

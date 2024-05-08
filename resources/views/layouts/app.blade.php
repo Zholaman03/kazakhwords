@@ -37,37 +37,16 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown2">
-                                   <a class="dropdown-item" >
-                                       Казахские слова
-                                    </a>
-                                    <a class="dropdown-item" >
-                                       Русские слова
-                                    </a>
-                                    <a class="dropdown-item" >
-                                        Английские слова
-                                    </a>
+                                    @foreach(App\Models\Category::all() as $category)
+                                        <a class="dropdown-item" href="{{route('words.category', $category->id)}}">{{ $category->name }}</a>
+                                    @endforeach
+                            
                                 </div>
                             </li>
-                            @auth
-                            <li class="nav-item dropdown border border-1 position-relative">
-                                <a class="nav-link" href="{{route('words.myWords', Auth::user()->id)}}">Мои отправлены</a>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
-                                    
-                                    
-                                    {{$count}} <span class="visually-hidden">unread messages</span>
-                                    
-                                </span>
-                            </li>
-                            @endauth
                             <li class="nav-item dropdown">
                                 <a class="nav-link " href="{{route('words.index')}}">Все</a>
                             </li>
-                            @can('create', App\Models\Word::class)
-                                <!-- <a href="{{route('words.create')}}" class="btn btn-primary">Create post</a> -->
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link text-primary" href="{{route('words.create')}}">Создать</a>
-                                </li>
-                            @endcan
+                            
                     </ul>
                    
 
@@ -97,6 +76,10 @@
                                     <a class="dropdown-item" href="{{route('adm.index')}}"
                                        >
                                         Админ профиль
+                                    </a>
+                                    @else
+                                    <a class="dropdown-item" target="_blank" href="{{route('user.index')}}">
+                                        Профиль
                                     </a>
                                     @endif
                                     <a class="dropdown-item" href="{{route('logout')}}"

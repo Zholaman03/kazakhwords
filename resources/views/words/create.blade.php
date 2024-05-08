@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('title', 'Создать')
 
@@ -14,6 +14,12 @@
 
             </div>
 
+        @endif
+        @if(session('message'))
+            <div class="alert alert-success" role="alert">
+                {{session('message')}}
+
+            </div>
         @endif
         <div class="row justify-content-center">
             <div class="col-md-6 ">

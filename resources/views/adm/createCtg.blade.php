@@ -4,6 +4,7 @@
 
 @section('content')
         <div class="container">
+        
             <form action="{{route('adm.addCtg')}}" method="POST">
             <div class="input-group mb-3">
                 

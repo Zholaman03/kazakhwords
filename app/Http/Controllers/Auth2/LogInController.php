@@ -27,7 +27,7 @@ class LogInController extends Controller
             if(Auth::user()->role->name == "admin"){
                 return redirect()->intended('/admin');
             }
-            return redirect()->intended('/words');
+            return redirect()->intended('/myprofile');
         }
 
         return redirect()->back()->withErrors('Неправильный пароль или логин!!');

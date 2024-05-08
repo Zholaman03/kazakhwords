@@ -5,81 +5,49 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Word;
-use App\Models\User;
+use App\Models\Category;
 
 class WordController extends Controller
 {
-    //
-    public function index(){
-        
-        $count = 0;
-        if(Auth::check()){
-        $array = Auth::user()->words;
-        for($i=0; $i<count($array); $i++){
-            if(!$array[$i]->is_active){
-                $count++;
-            }
-        }
-        }
-    
-        $words = Word::where('is_active', true)->get();
-        
-        
-       
-        return view('words.index', ['allwords'=>$words, 'count'=>$count]);
+    public function index()
+    {
+        $words = Word::where('is_active', true)
+                     ->orderBy('created_at', 'desc')
+                     ->get();
+        $count = $this->countInactiveWords();             
+
+        return view('words.index', compact('words', 'count'));
     }
 
-    public function myWords(User $user){
-        $count = 0;
-        if(Auth::check()){
-        $array = Auth::user()->words;
-        for($i=0; $i<count($array); $i++){
-            if(!$array[$i]->is_active){
-                $count++;
-            }
-        }
-        }
+    public function wordsByCategory(Category $category)
+    {
+        $words = $category->words;
 
-        $words = Word::where('user_id', $user->id)->where('is_active', false)->get();
-        return view('words.myWords', ['allwords'=>$words, 'count'=>$count]);
+        return view('words.index', compact('words'));
     }
 
-    public function create(){
+    public function create()
+    {
         $this->authorize('create', Word::class);
 
-        $count = 0;
-        if(Auth::check()){
-        $array = Auth::user()->words;
-        for($i=0; $i<count($array); $i++){
-            if(!$array[$i]->is_active){
-                $count++;
-            }
-        }
-        }
+        $count = $this->countInactiveWords();
         
-        return view('words.create', ['count'=>$count]);
+        return view('words.create', compact('count'));
     }
 
-    public function edit(Word $word){
-
-
-        
+    public function edit(Word $word)
+    {
         $this->authorize('view', $word);
 
-        $count = 0;
-        if(Auth::check()){
-        $array = Auth::user()->words;
-        for($i=0; $i<count($array); $i++){
-            if(!$array[$i]->is_active){
-                $count++;
-            }
-        }
-        }
-        return view('words.edit', ['allWords' => $word, 'count'=>$count]);
+        $count = $this->countInactiveWords();
+
+        return view('words.edit', compact('word', 'count'));
     }
 
-    public function update(Request $req, Word $word){
+    public function update(Request $req, Word $word)
+    {
         $this->authorize('update', $word);
+
         $validated = $req->validate([
             'author' => 'required|max:255',
             'description' => 'required|min:7'
@@ -87,32 +55,38 @@ class WordController extends Controller
         
         $word->update($validated+['is_active'=>false]);
        
-        return redirect()->route('words.index')->with('message', 'Отправлен на админ чтобы проверить ваша обновление');
+        return redirect()->route('user.index')->with('message', 'Отправлен на админ чтобы проверить ваша обновление');
     }
 
-    public function store(Request $req){
+    public function store(Request $req)
+    {
         $this->authorize('create', Word::class);
-       $validate = $req->validate([
+
+        $validate = $req->validate([
             'author' => 'required|max:255',
             'description' => 'required|min:7'
         ]);
 
-        
-            // Word::create($validate+['user_id'=>Auth::user()->id]);
         Auth::user()->words()->create($validate);
         
-        return redirect()->route('words.index')->with('message', 'Отправлен на админ чтобы проверить');
+        return back()->with('message', 'Отправлен на админ чтобы проверить');
     }
 
-    public function destroy(Word $word){
-
-        $wordModel = Word::find($word);;
-        if (!$wordModel) {
-            return redirect()->route('adm.words');
-        }
+    public function destroy(Word $word)
+    {
         $this->authorize('delete', $word);
         
         $word->delete();
+
         return back();
+    }
+
+    private function countInactiveWords()
+    {
+        if (Auth::check()) {
+            return Auth::user()->words->where('is_active', false)->count();
+        }
+
+        return 0;
     }
 }
