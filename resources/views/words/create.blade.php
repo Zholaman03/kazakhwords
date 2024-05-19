@@ -25,15 +25,15 @@
             <div class="col-md-6 ">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        <h5 class="card-title">Create Words</h5>
+                        <h5 class="card-title">Создать</h5>
                         <form action="{{route('words.store')}}" method="POST">
                             @csrf
                             <div class="form-group mt-3">
-                                <label for="wordInput">Author:</label>
+                                <label for="wordInput">Кто автор:</label>
                                 <input type="text" class="form-control" id="wordInput" name="author" placeholder="Enter a word" required>
                             </div>
                             <div class="form-group mt-3">
-                                <label for="descriptionTextarea">Description:</label>
+                                <label for="descriptionTextarea">Описание:</label>
                                 <textarea class="form-control" id="descriptionTextarea" name="description" rows="3" placeholder="Enter a description" required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Create</button>

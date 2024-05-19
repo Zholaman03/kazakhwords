@@ -29,7 +29,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label for="descriptionTextarea">Описание:</label>
-                                <textarea class="form-control" id="descriptionTextarea" name="description" rows="3" placeholder="Enter a description" required>{{$allWords->description}}</textarea>
+                                <textarea class="form-control" id="descriptionTextarea" name="description" rows="6" placeholder="Enter a description" required>{{$allWords->description}}</textarea>
                             </div>
                             <div class="form-group mt-3">
                             <label for="cat" class="form-label">Категорий:</label>

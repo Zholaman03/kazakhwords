@@ -21,7 +21,8 @@ class WordController extends Controller
 
     public function wordsByCategory(Category $category)
     {
-        $words = $category->words;
+        $words = $category->words()->where('is_active', true)->orderBy('created_at', 'desc')->get();
+        
 
         return view('words.index', compact('words'));
     }

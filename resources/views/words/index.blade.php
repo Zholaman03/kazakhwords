@@ -23,8 +23,13 @@
                             <div class="fw-bold">{{$word->author}}</div>
                             <hr/>
                             <div class="fw-lighter">{{$word->description}}</div>
+                            <div class="text-muted mt-4">
+                                Создано: {{$word->created_at->format('Y-m-d')}}
+                            </div>
+                            
                             <div class="fw-light position-absolute top-0  start-50 rounded translate-middle badge bg-secondary text-wrap "  style="width: 6rem;">{{$word->user->name}}</div>
                             </div>
+                            
                             
                         </div>
 

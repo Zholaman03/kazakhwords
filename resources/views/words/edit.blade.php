@@ -24,14 +24,14 @@
                             @csrf
                             @method('PUT')
                             <div class="form-group mt-3">
-                                <label for="wordInput">Author:</label>
+                                <label for="wordInput">Кто автор:</label>
                                 <input type="text" class="form-control" id="wordInput" value="{{$word->author}}" name="author" placeholder="Enter a word" required>
                             </div>
                             <div class="form-group mt-3">
-                                <label for="descriptionTextarea">Description:</label>
-                                <textarea class="form-control" id="descriptionTextarea" name="description" rows="3" placeholder="Enter a description" required>{{$word->description}}</textarea>
+                                <label for="descriptionTextarea">Описание:</label>
+                                <textarea class="form-control" id="descriptionTextarea" name="description" rows="7" placeholder="Enter a description" required>{{$word->description}}</textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3">Update</button>
+                            <button type="submit" class="btn btn-primary mt-3">Изменить</button>
                         </form>
                     </div>
                 </div>
