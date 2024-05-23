@@ -9,14 +9,28 @@ use App\Models\Category;
 
 class WordController extends Controller
 {
-    public function index()
+    public function index(Request $req)
     {
-        $words = Word::where('is_active', true)
-                     ->orderBy('created_at', 'desc')
+
+        $words = null;
+        if($req->search){
+            $words = Word::where('is_active', true)
+                     ->where('description', 'LIKE', '%'.$req->search.'%')
+                     ->orderBy('updated_at', 'desc')
                      ->get();
+        }
+        else{
+
+        
+        $words = Word::where('is_active', true)
+                     ->orderBy('updated_at', 'desc')
+                     ->get();
+
+        }
+        $search = $req->search;
         $count = $this->countInactiveWords();             
 
-        return view('words.index', compact('words', 'count'));
+        return view('words.index', compact('words', 'count', 'search'));
     }
 
     public function wordsByCategory(Category $category)

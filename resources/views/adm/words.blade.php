@@ -3,6 +3,7 @@
 @section('title', 'Админ')
 
 @section('content')
+
 <div class="container">
         @if(session('message'))
             <div class="alert alert-success" role="alert">
