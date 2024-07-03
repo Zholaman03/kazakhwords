@@ -44,8 +44,10 @@
                 <h1>No</h1>
                 @endif
             </div>
-          
-    
+          <div>
+                 {{ $words->links() }}
+          </div>
+           
         </div>
 
    

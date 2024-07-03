@@ -17,15 +17,12 @@ class WordController extends Controller
             $words = Word::where('is_active', true)
                      ->where('description', 'LIKE', '%'.$req->search.'%')
                      ->orderBy('updated_at', 'desc')
-                     ->get();
+                     ->paginate(5);
         }
         else{
-
-        
-        $words = Word::where('is_active', true)
+            $words = Word::where('is_active', true)
                      ->orderBy('updated_at', 'desc')
-                     ->get();
-
+                     ->paginate(5);
         }
         $search = $req->search;
         $count = $this->countInactiveWords();             
@@ -35,10 +32,10 @@ class WordController extends Controller
 
     public function wordsByCategory(Category $category)
     {
-        $words = $category->words()->where('is_active', true)->orderBy('created_at', 'desc')->get();
+        $words = $category->words()->where('is_active', true)->orderBy('created_at', 'desc')->paginate(5);;
         
-
-        return view('words.index', compact('words'));
+        $search = null;
+        return view('words.index', compact('words', 'search'));
     }
 
     public function create()
