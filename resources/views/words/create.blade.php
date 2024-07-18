@@ -36,6 +36,14 @@
                                 <label for="descriptionTextarea">Описание:</label>
                                 <textarea class="form-control" id="descriptionTextarea" name="description" rows="3" placeholder="Enter a description" required></textarea>
                             </div>
+                            <div class="form-group mt-3">
+                                <label for="cat" class="form-label">Категорий:</label>
+                                <select name="category_id" id="cat" class="form-select">
+                                    @foreach(App\Models\Category::all() as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <button type="submit" class="btn btn-primary mt-3">Create</button>
                         </form>
                     </div>

@@ -47,7 +47,8 @@ class AdminController extends Controller
             'author' => $req->author,
             'description' => $req->description,
             'is_active'=> true,
-            'category_id'=> $req->category_id
+            'category_id'=> $req->category_id,
+            'language_id'=>$req->language_id
         ]);
         return redirect()->route('adm.index')->with('message', 'Принял слова');
 

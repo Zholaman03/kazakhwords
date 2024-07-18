@@ -25,9 +25,10 @@ class WordController extends Controller
                      ->paginate(5);
         }
         $search = $req->search;
-        $count = $this->countInactiveWords();             
+        $count = $this->countInactiveWords();   
+        $countWords = Word::where('is_active', true)->count();          
 
-        return view('words.index', compact('words', 'count', 'search'));
+        return view('words.index', compact('words', 'countWords', 'search'));
     }
 
     public function wordsByCategory(Category $category)
@@ -101,4 +102,5 @@ class WordController extends Controller
 
         return 0;
     }
+
 }

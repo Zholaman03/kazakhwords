@@ -39,6 +39,14 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="form-group mt-3">
+                            <label for="cat" class="form-label">Язык:</label>
+                                <select name="language_id" id="lan" class="form-select">
+                                    @foreach(App\Models\Language::all() as $language)
+                                        <option value="{{ $language->id }}">{{ $language->lang }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <button type="submit" class="btn btn-primary mt-3">Принять</button>
                             
                         </form>

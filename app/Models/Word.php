@@ -18,5 +18,9 @@ class Word extends Model
         return $this->belongsTo(Category::class);
     }
 
-    protected $fillable = ['author', 'description', 'user_id', 'is_active', 'category_id'];
+    public function language(){
+        return $this->belongsTo(Langugae::class);
+    }
+
+    protected $fillable = ['author', 'description', 'user_id', 'is_active', 'category_id', 'language_id'];
 }
