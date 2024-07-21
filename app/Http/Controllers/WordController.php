@@ -11,22 +11,28 @@ class WordController extends Controller
 {
     public function index(Request $req)
     {
-
-        $words = null;
+ 
+        $catg = $req->catg ?? [];
+        $lang = $req->lang ?? [];
+        $query = Word::where('is_active', true);
+        session(['catg'=>$catg, 'lang'=>$lang]);
         if($req->search){
-            $words = Word::where('is_active', true)
-                     ->where('description', 'LIKE', '%'.$req->search.'%')
-                     ->orderBy('updated_at', 'desc')
-                     ->paginate(5);
+                $query->where('description', 'LIKE', '%'.$req->search.'%');
         }
-        else{
-            $words = Word::where('is_active', true)
-                     ->orderBy('updated_at', 'desc')
-                     ->paginate(5);
+        if($req->lang){
+                $query->whereIn('language_id', $req->lang);
         }
+        if($req->catg){
+                $query->whereIn('category_id', $req->catg);
+        }
+
+        $countWords = $query->count();  
+        $words = $query->orderBy('updated_at', 'desc')
+                ->paginate(5);
+
         $search = $req->search;
         $count = $this->countInactiveWords();   
-        $countWords = Word::where('is_active', true)->count();          
+                
 
         return view('words.index', compact('words', 'countWords', 'search'));
     }

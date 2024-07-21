@@ -17,7 +17,9 @@
     <link rel="stylesheet" href="{{asset('fontawesome-free-6.6.0-web/css/all.min.css')}}"/>
     @yield('style')
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @routes
+    @viteReactRefresh
+    @vite(['resources/sass/app.scss', 'resources/js/app.jsx'])
 </head>
 <body>
     <div id="app">

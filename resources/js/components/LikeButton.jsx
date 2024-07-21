@@ -7,7 +7,7 @@ const LikeButton = () => {
   const handleLikeClick = () => {
     setLiked(!liked);
     // Дополнительная логика для отправки запроса на сервер или обработки лайка
-    console.log('Лайкнули пост!');
+    alert('Лайкнули пост!');
   };
 
   return (

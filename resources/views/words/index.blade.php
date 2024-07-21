@@ -59,12 +59,20 @@
 
         .fa-regular{
             font-size: 25px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .fa-regular:hover{
+            font-size: 23px;
+            
         }
         .fa-up-right-from-square{
             font-size: 25px;
         }
         .like, .comment, .share{
             font-size: 25px;
+
+            
         }
 
         .actions{
@@ -113,12 +121,12 @@
                 <aside>
                  
                     
-                    <form action="">
+                    <form action="{{route('words.index')}}" method="GET">
                     <h5 style="color: #545452">Языки: </h5>
                         @foreach(App\Models\Language::all() as $language)
                         <div class="mt-3">
                             <label class="custom-checkbox">
-                                <input type="checkbox">
+                                <input type="checkbox" name="lang[]" value="{{$language->id}}" >
                                 <span class="checkmark"></span>
                                 {{$language->lang}}
                             </label>
@@ -130,12 +138,13 @@
                     @foreach(App\Models\Category::all() as $category)
                         <div class="mt-3">
                             <label class="custom-checkbox">
-                                <input type="checkbox">
+                                <input type="checkbox" name="catg[]" value="{{$category->id}}" @if(in_array($category->id, session('catg', []))) checked @endif>
                                 <span class="checkmark"></span>
                                 {{$category->name}}
                             </label>
                         </div>
                     @endforeach
+                    <button type="submit" class="btn btn-outline-success">Искать</button>
                     </form>
                 </aside>
             </div>
@@ -166,7 +175,8 @@
                                 </div>
                                 <hr>
                                 <div class="text-muted actions mt-4 d-flex justify-content-between ">
-                                    <span class="like"><i class="fa-regular fa-heart"></i> 0</span>
+                                    <span  id="react-like-button"></span>
+                                    <span class="like"><i class="fa-regular fa-heart "></i> 0</span>
                                     <span class="comment"><i class="fa-regular fa-comment"></i> 0</span>
                                     <span class="share"><i class="fa-solid fa-up-right-from-square"></i> 0</span>
                                 </div>
@@ -183,7 +193,7 @@
                 <h1>No</h1>
                 @endif
                 <div>
-                 {{ $words->links() }}
+                {{ $words->appends(['catg' => request()->input('catg'), 'lang' => request()->input('lang'), 'search'=>request()->input('search')])->links() }}
                 </div>
             </div>
          
@@ -194,3 +204,6 @@
 
 @endsection
 
+<!-- @section('script')
+<script src="{{ mix('js/app.jsx') }}"></script>
+@endsection -->
