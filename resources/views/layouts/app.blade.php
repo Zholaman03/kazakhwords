@@ -17,9 +17,8 @@
     <link rel="stylesheet" href="{{asset('fontawesome-free-6.6.0-web/css/all.min.css')}}"/>
     @yield('style')
     <!-- Scripts -->
-    @routes
-    @viteReactRefresh
-    @vite(['resources/sass/app.scss', 'resources/js/app.jsx'])
+    <!-- @routes -->
+
 </head>
 <body>
     <div id="app">
@@ -35,18 +34,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown2" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Категорий
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown2">
-                                    @foreach(App\Models\Category::all() as $category)
-                                        <a class="dropdown-item" href="{{route('words.category', $category->id)}}">{{ $category->name }}</a>
-                                    @endforeach
                             
-                                </div>
-                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link " href="{{route('words.index')}}">Все</a>
                             </li>
@@ -110,7 +98,8 @@
             @yield('content')
         </main>
     </div>
-
-    @yield('script')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @yield('scripts')
+    <script src="{{asset('js/scripts.js')}}"></script>
 </body>
 </html>

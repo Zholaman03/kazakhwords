@@ -5,6 +5,44 @@
 @section('style')
 
 <style>
+
+    /* Көлеңке */
+        .overlay {
+            display: none; /* Жасырылған күйде болу керек */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Көлеңке түсі */
+            z-index: 1000; /* жоғары деңгей */
+        }
+
+        /* aside стилі */
+        .filter-aside {
+            display: none; /* Жасырылған күйде болу керек */
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px; /* кеңдігі */
+            height: 100%;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* көлеңке */
+            z-index: 1001; /* жоғары деңгей */
+            overflow-y: auto;
+        }
+
+        .btn-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
     /* Скрываем стандартный чекбокс */
         .custom-checkbox input[type="checkbox"] {
             display: none;
@@ -57,8 +95,10 @@
             border-left: 10px solid blue; /* Ширина левого бордера */
         }
 
-        .fa-regular{
+
+        .fa-regular, .fa-solid{
             font-size: 25px;
+            
             cursor: pointer;
             transition: 0.2s;
         }
@@ -116,8 +156,67 @@
 
             </div>
         @endif
-    <div class="container-sm  d-flex justify-content-between">
-            <div class="w-25  border border-1 p-3 mt-3 filter d-none d-md-block">
+        <div id="overlay" class="overlay" onclick="toggleAside()"></div>
+            <aside id="filter-aside" class="filter-aside">
+                <!-- Жабу кнопкасы -->
+                <button class="btn-close" onclick="toggleAside()"></button>
+                
+                <form action="{{route('words.index')}}" method="GET">
+                    <h5 style="color: #545452">Языки: </h5>
+                    @foreach(App\Models\Language::all() as $language)
+                    <div class="mt-3">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="lang[]" value="{{$language->id}}" @if(in_array($language->id, session('lang', []))) checked @endif>
+                            <span class="checkmark"></span>
+                            {{$language->lang}}
+                        </label>
+                    </div>
+                    @endforeach
+                    <hr>
+                    <h5 style="color: #545452">Категорий: </h5>
+                    @foreach(App\Models\Category::all() as $category)
+                    <div class="mt-3">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="catg[]" value="{{$category->id}}" @if(in_array($category->id, session('catg', []))) checked @endif>
+                            <span class="checkmark"></span>
+                            {{$category->name}}
+                        </label>
+                    </div>
+                    @endforeach
+                    <button type="submit" class="btn btn-outline-success w-100 mt-3">Искать</button>
+                </form>
+            </aside>
+
+
+            <aside id="filter-aside" class="filter-aside">
+            <button class="btn-close" onclick="toggleAside()"></button>
+                <form action="{{route('words.index')}}" method="GET">
+                    <h5 style="color: #545452">Языки: </h5>
+                    @foreach(App\Models\Language::all() as $language)
+                    <div class="mt-3">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="lang[]" value="{{$language->id}}" @if(in_array($language->id, session('lang', []))) checked @endif>
+                            <span class="checkmark"></span>
+                            {{$language->lang}}
+                        </label>
+                    </div>
+                    @endforeach
+                    <hr>
+                    <h5 style="color: #545452">Категорий: </h5>
+                    @foreach(App\Models\Category::all() as $category)
+                    <div class="mt-3">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="catg[]" value="{{$category->id}}" @if(in_array($category->id, session('catg', []))) checked @endif>
+                            <span class="checkmark"></span>
+                            {{$category->name}}
+                        </label>
+                    </div>
+                    @endforeach
+                    <button type="submit" class="btn btn-outline-success w-100 mt-3">Искать</button>
+                </form>
+            </aside>
+        <div class="container-sm  d-flex justify-content-between">
+            <div class="w-25  border border-1 p-3 mt-3 filter d-none d-md-block"  id="filter-block">
                 <aside>
                  
                     
@@ -126,7 +225,7 @@
                         @foreach(App\Models\Language::all() as $language)
                         <div class="mt-3">
                             <label class="custom-checkbox">
-                                <input type="checkbox" name="lang[]" value="{{$language->id}}" >
+                                <input type="checkbox" name="lang[]" value="{{$language->id}}" @if(in_array($language->id, session('lang', []))) checked @endif>
                                 <span class="checkmark"></span>
                                 {{$language->lang}}
                             </label>
@@ -144,7 +243,7 @@
                             </label>
                         </div>
                     @endforeach
-                    <button type="submit" class="btn btn-outline-success">Искать</button>
+                    <button type="submit" class="btn btn-outline-success w-100 mt-3">Искать</button>
                     </form>
                 </aside>
             </div>
@@ -152,15 +251,15 @@
             <div class="w-100 mt-3  border border-1 p-3">
                 <div class="container mb-3 d-flex justify-content-between align-items-center mt-3">
                     <h4>Количество: {{$countWords}}</h2>
-                    <div class="filter">
-                        <button class="btn btn-outline-primary"> Фильтр </button>
+                    <div class="filter d-block d-md-none">
+                        <button class="btn btn-outline-primary" onclick="toggleAside()"> Фильтр </button>
                     </div>
                 </div>
                 <hr>
             @if(!$words->isEmpty())
                 @foreach($words as $word)
 
-                        <div class="container w-75  border-words p-4 rounded mb-5 bg-body-tertiary shadow-lg d-flex justify-content-between align-items-center">
+                        <div class="container w-100  border-words p-4 rounded mb-5 bg-body-tertiary shadow-lg d-flex justify-content-between align-items-center">
                             <div class="w-100">
                                 <div class="text-muted row  ">
                                     <span class="col-sm ">{{$word->user->name}}</span>
@@ -175,10 +274,9 @@
                                 </div>
                                 <hr>
                                 <div class="text-muted actions mt-4 d-flex justify-content-between ">
-                                    <span  id="react-like-button"></span>
-                                    <span class="like"><i class="fa-regular fa-heart "></i> 0</span>
-                                    <span class="comment"><i class="fa-regular fa-comment"></i> 0</span>
-                                    <span class="share"><i class="fa-solid fa-up-right-from-square"></i> 0</span>
+    
+                                    <span class="like" id="react-like-button-{{$word->id}}"></span>
+                                   
                                 </div>
                             
                                
@@ -200,10 +298,21 @@
            
         </div>
 
-   
+   @section('scripts')
+   <script>
+        function toggleAside() {
+            var asideElement = document.getElementById("filter-aside");
+            var overlayElement = document.getElementById("overlay");
+            if (asideElement.style.display === "none") {
+                asideElement.style.display = "block";
+                overlayElement.style.display = "block";
+            } else {
+                asideElement.style.display = "none";
+                overlayElement.style.display = "none";
+            }
+        }
+    </script>
+   @endsection
 
 @endsection
 
-<!-- @section('script')
-<script src="{{ mix('js/app.jsx') }}"></script>
-@endsection -->
