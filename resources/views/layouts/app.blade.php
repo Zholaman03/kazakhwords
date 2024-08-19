@@ -22,23 +22,25 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-dark  shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                Сокровищница мудрости
+                <a class="navbar-brand text-white" href="{{ url('/') }}">
+                Мудрые слова
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
+                <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon "></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-auto ">
                             
-                            <li class="nav-item dropdown">
-                                <a class="nav-link " href="{{route('words.index')}}">Все</a>
+                            <li class="nav-item dropdown ">
+                                <a class="nav-link text-white" href="{{route('words.index')}}">Все</a>
                             </li>
-                            
+                            <li class="nav-item dropdown ">
+                                <a class="nav-link text-white" href="/info">Инструкция</a>
+                            </li>
                     </ul>
                    
 
@@ -48,29 +50,29 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Вход') }}</a>
+                                    <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Вход') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
+                                    <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     @if(Auth::user()->role->name == 'admin')
-                                    <a class="dropdown-item" href="{{route('adm.index')}}"
+                                    <a class="dropdown-item " href="{{route('adm.index')}}"
                                        >
                                         Админ профиль
                                     </a>
                                     @else
-                                    <a class="dropdown-item" target="_blank" href="{{route('user.index')}}">
+                                    <a class="dropdown-item " href="{{route('user.index')}}">
                                         Профиль
                                     </a>
                                     @endif

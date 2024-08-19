@@ -11,8 +11,10 @@ use App\Models\Word;
 class UserController extends Controller
 {
     public function index(){
+        $user = Auth::user();
+      
         $count = $this->countInactiveWords();
-        return view('user.index', ['count'=>$count]);
+        return view('user.index', ['count'=>$count, 'user'=>$user]);
     }
 
     public function showMyWords(User $user){

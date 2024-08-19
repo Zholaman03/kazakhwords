@@ -16,7 +16,7 @@
 
         @endif
         <div class="row justify-content-center">
-            <div class="col-md-6 ">
+            <div class="col-md-6 w-100">
                 <div class="card shadow-lg">
                     <div class="card-body">
                         <h5 class="card-title">Редактировать</h5>
@@ -24,14 +24,14 @@
                             @csrf
                             @method('PUT')
                             <div class="form-group mt-3">
-                                <label for="wordInput">Кто автор:</label>
-                                <input type="text" class="form-control" id="wordInput" value="{{$word->author}}" name="author" placeholder="Enter a word" required>
+                                <label for="wordInput">Автор:</label>
+                                <input type="text" class="form-control" id="wordInput" value="{{$word->author}}" name="author" placeholder="Введите автор слова" required>
                             </div>
                             <div class="form-group mt-3">
                                 <label for="descriptionTextarea">Описание:</label>
-                                <textarea class="form-control" id="descriptionTextarea" name="description" rows="7" placeholder="Enter a description" required>{{$word->description}}</textarea>
+                                <textarea class="form-control" id="descriptionTextarea" name="description" rows="10" style="resize: none;" placeholder="Введите слова автора" required>{{$word->description}}</textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3">Изменить</button>
+                            <button type="submit" class="btn btn-primary mt-3">Отправить изменение на админ</button>
                         </form>
                     </div>
                 </div>

@@ -288,7 +288,7 @@
                     
                     @endforeach
                 @else
-                <h1>No</h1>
+                <h1>Не найдено</h1>
                 @endif
                 <div>
                 {{ $words->appends(['catg' => request()->input('catg'), 'lang' => request()->input('lang'), 'search'=>request()->input('search')])->links() }}

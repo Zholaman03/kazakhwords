@@ -45,7 +45,7 @@
                     
                     @endforeach
                 @else
-                <h1>No</h1>
+                <h1>Не найдено</h1>
                 @endif
             </div>
           

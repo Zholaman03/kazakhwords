@@ -10,6 +10,7 @@
         <link rel="icon" type="image/x-icon" href="{{asset('assets/favicon.ico')}}" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{asset('css/styles.css')}}" rel="stylesheet" />
+        @yield('styles')
     </head>
     <body>
         <div class="d-flex" id="wrapper">

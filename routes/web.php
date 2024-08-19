@@ -37,6 +37,9 @@ Route::middleware('auth')->group(function(){
 
 Route::get('/words', [WordController::class, 'index'])->name('words.index');
 Route::get('/words/{category}', [WordController::class, 'wordsByCategory'])->name('words.category');
+Route::get('/info', function(){
+    return view('info.info');
+});
 
 
 

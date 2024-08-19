@@ -74,7 +74,7 @@ class WordController extends Controller
         
         $word->update($validated+['is_active'=>false]);
        
-        return redirect()->route('user.index')->with('message', 'Отправлен на админ чтобы проверить ваша обновление');
+        return redirect()->route('user.index')->with('message', 'Отправлено администратору для проверки вашего обновления');
     }
 
     public function store(Request $req)
@@ -88,7 +88,7 @@ class WordController extends Controller
 
         Auth::user()->words()->create($validate);
         
-        return back()->with('message', 'Отправлен на админ чтобы проверить');
+        return back()->with('message', 'Отправлено администратору для проверки');
     }
 
     public function destroy(Word $word)
